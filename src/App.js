@@ -1,21 +1,17 @@
-import "./App.css";
-
+import { Outlet, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { auth } from "./firebase";
+import RegPage from "./pages/RegPage/RegPage";
+import style from "./style.module.css";
+import HomePage from "./pages/HomePage/HomePage";
 function App() {
+  const navigate = useNavigate();
+
+  const path = window?.location.pathname;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={style.container}>
+      <Outlet />
     </div>
   );
 }

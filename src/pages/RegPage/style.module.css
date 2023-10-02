@@ -1,0 +1,11 @@
+.container {
+  display: inline-flex;
+  padding: 40px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 32px;
+  border: 1px solid rgba(102, 102, 102, 0.35);
+  background: rgba(255, 255, 255, 0.8);
+  margin-top: 10%;
+}
