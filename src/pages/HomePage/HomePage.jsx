@@ -32,7 +32,7 @@ const HomePage = () => {
 
   return (
     <div>
-      todolist
+      todolist~
       <button onClick={userSignOut}>Sign Out</button>
     </div>
   );
