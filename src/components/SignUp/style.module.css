@@ -80,3 +80,26 @@ input:-webkit-autofill:active {
   align-items: flex-start;
   gap: 4px;
 }
+
+.form__line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 448px;
+  gap: 23px;
+}
+
+.form__line > p {
+  color: #666;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.form__line > span {
+  height: 2px;
+  flex: 1 0 0;
+  background: rgba(102, 102, 102, 0.25);
+}

@@ -61,6 +61,11 @@ export const SignUp = () => {
           Sign Up
         </button>
       </div>
+      <div className={style.form__line}>
+        <span></span>
+        <p>OR</p>
+        <span></span>
+      </div>
     </form>
   );
 };

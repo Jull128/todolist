@@ -22,7 +22,7 @@ export const SignIn = () => {
 
   return (
     <form onSubmit={signIn} className={style.form}>
-      <h1>Create Account</h1>
+      <h1>Welcome back!</h1>
       <div className={style.form_container}>
         <label className={style.form__label}>
           Email
@@ -45,7 +45,7 @@ export const SignIn = () => {
           />
         </label>
         <button type="submit" className={style.form__button}>
-          Войти
+          Sign In
         </button>
       </div>
     </form>

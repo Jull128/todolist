@@ -8,12 +8,12 @@ const LoginPage = () => {
   return (
     <div className={style.container}>
       <SignIn />
-      {/* <div className={style.btnBox}>
-        уже зарегистрированы?
-        <Link to={"/signin"} className={style.btn}>
-          Sign in
+      <div className={style.btnBox}>
+        Don't have an ccount?
+        <Link to={"/signup"} className={style.btn}>
+          Sign up
         </Link>
-      </div> */}
+      </div>
     </div>
   );
 };
