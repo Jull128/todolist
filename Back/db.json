@@ -1,0 +1,29 @@
+{
+  "users": [
+    {
+      "email": "test@test.ru",
+      "password": "$2a$10$msNMEE0OfWE4FOOfGRMgzOeatOA6vbrMt4KptqDn/yUwTMEeyqtEq",
+      "id": 1
+    },
+    {
+      "email": "test3@test.ru",
+      "password": "$2a$10$KLv0AD7bWC.HM./symJkBuYOuY9pGxCUb0bdrE8rlDxBTTqWi88Fa",
+      "id": 2
+    },
+    {
+      "email": "test4@test.ru",
+      "password": "$2a$10$KsPuZGxN6fDEQDX.FzHEYe4IzAQe.zjs5uCd8UeSci0/IFIOj62s.",
+      "id": 3
+    },
+    {
+      "email": "test5@test.ru",
+      "password": "$2a$10$nlvw6HdeKEyBBIDfrMtV6ei5ViCy7wCNQ3V3WV/Ben74ZrvyixfK.",
+      "id": 4
+    }
+  ],
+  "messages": [
+    {
+      "title": "asdasd"
+    }
+  ]
+}
