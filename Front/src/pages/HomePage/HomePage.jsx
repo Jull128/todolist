@@ -4,7 +4,13 @@ import { Todolist } from "../../components/Todolist/Todolist";
 import style from "./style.module.css";
 export const HomePage = () => {
   const navigate = useNavigate();
-  const [list, setList] = useState([]);
+  const getLS = () => {
+    let listLS = localStorage.getItem("todolist");
+    if (listLS) {
+      return (listLS = JSON.parse(localStorage.getItem("todolist")));
+    } else return [];
+  };
+
   const initState = {
     title: "",
     description: "",
@@ -12,15 +18,16 @@ export const HomePage = () => {
     deadline_time: "",
     status: false,
   };
+  const [list, setList] = useState(getLS());
   const [todo, setTodo] = useState(initState);
-
   const [edit, setEdit] = useState(false);
-  const [editID, setEditID] = useState(false);
-
+  const [editID, setEditID] = useState(null);
   const handleInputChange = (event) => {
     setTodo({ ...todo, [event.target.name]: event.target.value });
   };
-
+  useEffect(() => {
+    localStorage.setItem("todolist", JSON.stringify(list));
+  }, [list]);
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
@@ -39,12 +46,15 @@ export const HomePage = () => {
       !todo.deadline_date ||
       !todo.deadline_time
     ) {
-      console.log("пусто");
+      //написать ошибку
+      TODO: console.log("пусто");
     } else if (todo && edit) {
       setList(
         list.map((item) => {
           if (item.id === editID) {
-            return { ...item, todo };
+            console.log(todo);
+            console.log(item);
+            return { ...todo };
           }
           return item;
         })
@@ -53,34 +63,43 @@ export const HomePage = () => {
       setEditID(null);
       setEdit(false);
     } else {
-      const newItem = {
+      let newItem = {
         id: new Date().getTime().toString(),
-        // title: todo.title,
-        // description: todo.description,
-        // deadline_date: todo.deadline_date,
-        // deadline_time: todo.deadline_time,
-        todo,
+        title: todo.title,
+        description: todo.description,
+        deadline_date: todo.deadline_date,
+        deadline_time: todo.deadline_time,
+        status: todo.status,
       };
-      console.log(newItem);
       let updList = [...list];
       updList.push(newItem);
-
       setList(updList);
-      console.log(list);
       setTodo(initState);
     }
   };
 
   const removeItem = (id) => {
-    setList(list.filter((item) => item.id !== id));
+    let reducedTodo = [...list];
+    let remove = reducedTodo.filter((item) => item.id !== id);
+    localStorage.setItem("todolist", JSON.stringify(remove));
+    setList(remove);
   };
 
   const editItem = (id) => {
     const editItem = list.find((item) => item.id === id);
-    console.log(editItem);
+    console.log(1);
     setEdit(true);
     setEditID(id);
-    setTodo(editItem.todo);
+    setTodo(editItem);
+
+    console.log(2, editItem);
+  };
+
+  const editStatus = (id) => {
+    const editStatus = list.find((item) => item.id === id);
+    console.log(editStatus);
+    setTodo({ ...editStatus, [editStatus.status]: true });
+    console.log(todo.status);
   };
 
   return (
@@ -127,7 +146,13 @@ export const HomePage = () => {
         />
         <button type="submit">{edit ? "Edit" : "Submit"}</button>
       </form>
-      <Todolist list={list} removeItem={removeItem} editItem={editItem} />
+      <Todolist
+        list={list}
+        todo={todo}
+        editStatus={editStatus}
+        removeItem={removeItem}
+        editItem={editItem}
+      />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import style from "./style.module.css";
 import { useNavigate } from "react-router-dom";
-import api from "../../utils";
+import { api } from "../../utils";
 export const SignUp = () => {
   const [policy, setPolicy] = useState("");
   const navigate = useNavigate();

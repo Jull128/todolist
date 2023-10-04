@@ -1,14 +1,23 @@
 import React from "react";
 
-export const Todolist = ({ list, removeItem, editItem }) => {
+export const Todolist = ({ list, editStatus, removeItem, editItem }) => {
   return list.map((item) => {
     const id = item.id;
-    const title = item.todo.title;
-    const description = item.todo.description;
+    const title = item.title;
+    const description = item.description;
+    const status = item.status;
+    // const handleEditStatus = () => {
+    //   setTodo({ ...item.todo, status: !status });
+    //   console.log(status);
+    // };
     return (
       <div key={id}>
         <div>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            value={status}
+            onClick={() => editStatus(id)}
+          />
           <p>{title}</p>
           <p>{description}</p>
         </div>
