@@ -1,18 +1,11 @@
 import { useState } from "react";
 import style from "./style.module.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../utils";
 export const SignUp = () => {
   const [policy, setPolicy] = useState("");
   const navigate = useNavigate();
-
-  const api = "http://localhost:3000/";
   const [form, setForm] = useState({ email: "", password: "" });
-  // const makeAuthRequest = async (data) => {
-  //   console.log(data);
-  //   const res = await axios.post(`${api}signup`, data);
-  //   console.log(res, "res");
-  // };
 
   // // Функция для симуляции запроса к серверу
   const makeAuthRequest = async (e) => {
@@ -28,7 +21,7 @@ export const SignUp = () => {
 
       const data = await response.json();
 
-      // Перейдите на домашнюю страницу
+      // Перейти на страницу авторизации
       navigate("/signin");
     } catch (error) {
       console.error(error);

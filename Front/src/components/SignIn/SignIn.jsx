@@ -1,10 +1,10 @@
 import { useState } from "react";
 import style from "./style.module.css";
 import { useNavigate } from "react-router-dom";
+import api from "../../utils";
 export const SignIn = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
-  const api = "http://localhost:3000/";
 
   // // Функция для симуляции запроса к серверу
   const makeAuthRequest = async (e) => {
@@ -20,11 +20,11 @@ export const SignIn = () => {
 
       const data = await response.json();
 
-      // Сохраните полученные токены в localStorage или хранилище состояния
+      // Сохраняем полученные токены в localStorage
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
 
-      // Перейдите на домашнюю страницу
+      // Перейти на домашнюю страницу
       navigate("/home");
     } catch (error) {
       console.error(error);
