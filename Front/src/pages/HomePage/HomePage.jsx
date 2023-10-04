@@ -49,7 +49,7 @@ export const HomePage = () => {
           return item;
         })
       );
-      setTodo("");
+      setTodo(initState);
       setEditID(null);
       setEdit(false);
     } else {
@@ -78,9 +78,9 @@ export const HomePage = () => {
   const editItem = (id) => {
     const editItem = list.find((item) => item.id === id);
     console.log(editItem);
-    // setEdit(true);
-    // setEditID(id);
-    // setTodo(editItem);
+    setEdit(true);
+    setEditID(id);
+    setTodo(editItem.todo);
   };
 
   return (
