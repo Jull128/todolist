@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Todolist } from "../../components/Todolist/Todolist";
-
+import style from "./style.module.css";
 export const HomePage = () => {
   const navigate = useNavigate();
   const [list, setList] = useState([]);
@@ -84,7 +84,7 @@ export const HomePage = () => {
   };
 
   return (
-    <div>
+    <div className={style.container}>
       <form onSubmit={(e) => handleSubmit(e)}>
         <label>
           Name

@@ -21,8 +21,8 @@ function App() {
 
   return (
     <div className={style.container}>
-      <Outlet />
       <Header />
+      <Outlet />
       {path === "/" && <HomePage />}
     </div>
   );
