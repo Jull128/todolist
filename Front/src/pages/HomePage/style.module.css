@@ -5,6 +5,14 @@
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
+  border-style: none;
+  color: white;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   border-radius: 32px;
   opacity: 0.5;
   background: #000;
@@ -27,6 +35,7 @@
 .form {
   display: flex;
   height: 87px;
+  width: 100%;
   max-width: 1130px;
   justify-content: center;
   align-items: flex-end;
@@ -54,7 +63,7 @@
 }
 
 .form__input_date {
-  width: 159px;
+  width: 101px;
 }
 
 input:-webkit-autofill,
@@ -66,14 +75,21 @@ input:-webkit-autofill:active {
 
 .form__label {
   display: flex;
-  width: 478px;
+  min-width: 180px;
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
 }
+.form__label:first-child {
+  max-width: 182px;
+}
+
+.form__label:nth-child(2) {
+  min-width: 472px;
+}
+
 .form__label_deadline {
   display: flex;
-  width: 478px;
   align-items: flex-start;
-  gap: 4px;
+  gap: 24px;
 }

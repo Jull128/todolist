@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./style.module.css";
+import { useEffect } from "react";
 export const Todolist = ({ list, editStatus, removeItem, editItem }) => {
   return list.map((item) => {
     const id = item.id;
@@ -7,26 +8,45 @@ export const Todolist = ({ list, editStatus, removeItem, editItem }) => {
     const description = item.description;
     const date = item.deadline_date;
     const time = item.deadline_time;
-    const status = item.status;
-
-    console.log("todo");
+    const isComplete = item.isComplete;
 
     return (
       <div key={id} className={style.container}>
-        <div>
-          <input
-            type="checkbox"
-            name="complete"
-            value={status}
-            id={id}
-            onClick={() => editStatus(id)}
-          />
-          <div>
-            <p>{title}</p>
-            <p>{date}</p>
-            <p>{time}</p>
+        <div className={style.todo}>
+          <div className={style.todo__checkbox_container}>
+            <input
+              type="checkbox"
+              name="complete"
+              value={isComplete}
+              id={`check${id}`}
+              className={style.item__checkbox}
+              onClick={() => editStatus(id.replace("check", ""))}
+            />
+            <label htmlFor={`check${id}`}></label>
           </div>
-          <p>{description}</p>
+          <div className={style.todo__description}>
+            <div className={style.todo__title}>
+              <p
+                name={`titleTodo${id}`}
+                className={isComplete ? style.edit : ""}
+              >
+                {title}
+              </p>
+              <p
+                name={`titleTodo${id}`}
+                className={isComplete ? style.edit : ""}
+              >
+                {date}
+              </p>
+              <p
+                name={`titleTodo${id}`}
+                className={isComplete ? style.edit : ""}
+              >
+                {time}
+              </p>
+            </div>
+            <p name="descriptionTodo">{description}</p>
+          </div>
         </div>
         <div className={style.button_box}>
           <button

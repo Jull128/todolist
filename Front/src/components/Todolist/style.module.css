@@ -1,7 +1,9 @@
 .container {
   display: flex;
+  width: 100%;
   max-width: 1130px;
   padding: 8px 0px;
+  justify-content: center;
   align-items: center;
   gap: 16px;
   flex-shrink: 0;
@@ -14,8 +16,13 @@
 
 .button_edit,
 .button_remove {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
   width: 24px;
   height: 24px;
+  border-style: none;
 }
 
 .button_edit {
@@ -24,4 +31,93 @@
 
 .button_remove {
   background: url(../../img/remove.svg);
+}
+
+.item__checkbox {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  z-index: 5;
+  opacity: 0;
+  margin: 0;
+}
+
+.item__checkbox + label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.item__checkbox + label::before {
+  content: "";
+  display: inline-block;
+  width: 17.5px;
+  height: 17.5px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: pointer;
+}
+
+.item__checkbox:checked + label::before {
+  background-color: #ffffff;
+  background-image: url(../../img/checkbox.svg);
+}
+
+/* стили при наведении курсора на checkbox */
+.item__checkbox:not(:disabled):not(:checked) + label:hover::before {
+  border-color: #000000;
+}
+
+/* стили для чекбокса, находящегося в фокусе и не находящегося в состоянии checked */
+.item__checkbox:focus:not(:checked) + label::before {
+  border-color: #393a3a;
+}
+/* стили для чекбокса, находящегося в состоянии disabled */
+.item__checkbox:disabled + label::before {
+  background-color: #fff;
+}
+
+p {
+  color: #333;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+.todo {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 992px;
+  gap: 16px;
+}
+.todo__checkbox_container {
+  display: flex;
+  align-items: center;
+}
+.todo__description {
+  display: flex;
+  flex-direction: column;
+}
+.todo__description > p {
+  color: rgba(51, 51, 51, 0.75);
+}
+.todo__description > p.edit {
+  color: #b86e1f;
+}
+.todo__title {
+  display: flex;
+  gap: 15px;
+}
+
+.edit {
+  text-decoration: line-through;
+  color: #b86e1f;
 }

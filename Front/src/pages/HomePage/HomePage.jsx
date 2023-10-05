@@ -12,6 +12,8 @@ export const HomePage = () => {
     } else return [];
   };
 
+  //https://stackoverflow.com/questions/43572436/sort-an-array-of-objects-in-react-and-render-them
+
   const initState = {
     title: "",
     description: "",
@@ -31,7 +33,7 @@ export const HomePage = () => {
     let listLS = JSON.parse(localStorage.getItem("todolist"));
     let checkboxes = document.getElementsByName("complete");
     for (var i = 0, n = checkboxes.length; i < n; i++) {
-      let selected = checkboxes[i].id;
+      let selected = checkboxes[i].id.replace("check", "");
       let search = listLS.find((x) => x.id === selected);
       if (search.isComplete) {
         checkboxes[i].checked = true;
@@ -43,11 +45,12 @@ export const HomePage = () => {
 
   setTimeout(() => {
     isChecked();
-  }, 50);
+  }, 10);
 
   useEffect(() => {
     localStorage.setItem("todolist", JSON.stringify(list));
   }, [list]);
+
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
@@ -117,12 +120,11 @@ export const HomePage = () => {
 
   const editStatus = (idStatus) => {
     setList(
-      list.map((item) => {
-        if (item.id === idStatus) {
-          console.log(todo);
-          console.log(item);
-          return { ...item, isComplete: !item.isComplete };
+      list.filter((todo) => {
+        if (todo.id === idStatus) {
+          todo.isComplete = !todo.isComplete;
         }
+        return todo;
       })
     );
   };
@@ -131,7 +133,7 @@ export const HomePage = () => {
     <div className={style.container}>
       <h1>TodoList</h1>
       <form onSubmit={(e) => handleSubmit(e)} className={style.form}>
-        <label>
+        <label className={style.form__label}>
           Name
           <input
             type="text"
@@ -161,7 +163,6 @@ export const HomePage = () => {
               name="deadline_date"
               placeholder="dd.mm.yyyy"
               onFocus={(e) => (e.target.type = "date")}
-              onBlur={(e) => (e.target.type = "text")}
               value={todo.deadline_date}
               onChange={(e) => handleInputChange(e)}
               className={style.form__input_date}

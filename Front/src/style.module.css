@@ -33,7 +33,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background: url(/src/img/background.png) no-repeat center / cover;
 }
