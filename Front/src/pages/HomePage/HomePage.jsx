@@ -6,6 +6,7 @@ export const HomePage = () => {
   const navigate = useNavigate();
   const getLS = () => {
     let listLS = localStorage.getItem("todolist");
+
     if (listLS) {
       return (listLS = JSON.parse(localStorage.getItem("todolist")));
     } else return [];
@@ -16,7 +17,7 @@ export const HomePage = () => {
     description: "",
     deadline_date: "",
     deadline_time: "",
-    status: false,
+    isComplete: false,
   };
   const [list, setList] = useState(getLS());
   const [todo, setTodo] = useState(initState);
@@ -25,6 +26,25 @@ export const HomePage = () => {
   const handleInputChange = (event) => {
     setTodo({ ...todo, [event.target.name]: event.target.value });
   };
+
+  const isChecked = () => {
+    let listLS = JSON.parse(localStorage.getItem("todolist"));
+    let checkboxes = document.getElementsByName("complete");
+    for (var i = 0, n = checkboxes.length; i < n; i++) {
+      let selected = checkboxes[i].id;
+      let search = listLS.find((x) => x.id === selected);
+      if (search.isComplete) {
+        checkboxes[i].checked = true;
+      } else {
+        checkboxes[i].checked = false;
+      }
+    }
+  };
+
+  setTimeout(() => {
+    isChecked();
+  }, 50);
+
   useEffect(() => {
     localStorage.setItem("todolist", JSON.stringify(list));
   }, [list]);
@@ -69,7 +89,7 @@ export const HomePage = () => {
         description: todo.description,
         deadline_date: todo.deadline_date,
         deadline_time: todo.deadline_time,
-        status: todo.status,
+        isComplete: todo.isComplete,
       };
       let updList = [...list];
       updList.push(newItem);
@@ -95,16 +115,22 @@ export const HomePage = () => {
     console.log(2, editItem);
   };
 
-  const editStatus = (id) => {
-    const editStatus = list.find((item) => item.id === id);
-    console.log(editStatus);
-    setTodo({ ...editStatus, [editStatus.status]: true });
-    console.log(todo.status);
+  const editStatus = (idStatus) => {
+    setList(
+      list.map((item) => {
+        if (item.id === idStatus) {
+          console.log(todo);
+          console.log(item);
+          return { ...item, isComplete: !item.isComplete };
+        }
+      })
+    );
   };
 
   return (
     <div className={style.container}>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <h1>TodoList</h1>
+      <form onSubmit={(e) => handleSubmit(e)} className={style.form}>
         <label>
           Name
           <input
@@ -113,12 +139,10 @@ export const HomePage = () => {
             placeholder="Title"
             value={todo.title}
             onChange={(e) => handleInputChange(e)}
-            // className={style.form__input}
+            className={style.form__input}
           />
         </label>
-        <label
-        // className={style.form__label}
-        >
+        <label className={style.form__label}>
           Description
           <input
             type="text"
@@ -126,29 +150,40 @@ export const HomePage = () => {
             name="description"
             value={todo.description}
             onChange={(e) => handleInputChange(e)}
-            // className={style.form__input}
+            className={style.form__input}
           />
         </label>
-        Deadline
-        <input
-          type="date"
-          name="deadline_date"
-          value={todo.deadline_date}
-          onChange={(e) => handleInputChange(e)}
-          // className={style.form__input}
-        />
-        <input
-          type="time"
-          name="deadline_time"
-          value={todo.deadline_time}
-          onChange={(e) => handleInputChange(e)}
-          // className={style.form__input}
-        />
-        <button type="submit">{edit ? "Edit" : "Submit"}</button>
+        <label className={style.form__label}>
+          Deadline
+          <div className={style.form__label_deadline}>
+            <input
+              type="text"
+              name="deadline_date"
+              placeholder="dd.mm.yyyy"
+              onFocus={(e) => (e.target.type = "date")}
+              onBlur={(e) => (e.target.type = "text")}
+              value={todo.deadline_date}
+              onChange={(e) => handleInputChange(e)}
+              className={style.form__input_date}
+            />
+            <input
+              type="time"
+              name="deadline_time"
+              value={todo.deadline_time}
+              onChange={(e) => handleInputChange(e)}
+              className={style.form__input}
+            />
+          </div>
+        </label>
+        <button type="submit" className={style.button}>
+          {edit ? "Edit" : "Submit"}
+        </button>
       </form>
+      <div className={style.line}></div>
       <Todolist
         list={list}
         todo={todo}
+        setTodo={setTodo}
         editStatus={editStatus}
         removeItem={removeItem}
         editItem={editItem}

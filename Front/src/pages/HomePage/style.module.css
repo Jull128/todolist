@@ -1,3 +1,15 @@
+.button {
+  display: flex;
+  width: 135px;
+  height: 52px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 32px;
+  opacity: 0.5;
+  background: #000;
+}
+
 .container {
   display: flex;
   width: 1325px;
@@ -10,4 +22,58 @@
   border-radius: 32px;
   border: 1px solid rgba(102, 102, 102, 0.35);
   background: rgba(255, 255, 255, 0.9);
+}
+
+.form {
+  display: flex;
+  height: 87px;
+  max-width: 1130px;
+  justify-content: center;
+  align-items: flex-end;
+  align-content: flex-end;
+  gap: 24px;
+}
+
+.form > label {
+  width: 100%;
+}
+.form__input,
+.form__input_date {
+  height: 54px;
+  align-self: stretch;
+  border-radius: 12px;
+  border: 1px solid #545454;
+  background: none;
+  padding: 0 15px;
+  color: #474747;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.form__input_date {
+  width: 159px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255) inset !important;
+}
+
+.form__label {
+  display: flex;
+  width: 478px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+.form__label_deadline {
+  display: flex;
+  width: 478px;
+  align-items: flex-start;
+  gap: 4px;
 }

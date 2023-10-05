@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  max-width: 1130px;
+  padding: 8px 0px;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.button_box {
+  display: flex;
+  gap: 26px;
+}
+
+.button_edit,
+.button_remove {
+  width: 24px;
+  height: 24px;
+}
+
+.button_edit {
+  background: url(../../img/edit.svg);
+}
+
+.button_remove {
+  background: url(../../img/remove.svg);
+}
