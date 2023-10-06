@@ -1,30 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Todolist } from "../../components/Todolist/Todolist";
 import style from "./style.module.css";
-export const HomePage = () => {
-  const navigate = useNavigate();
-  const getLS = () => {
-    let listLS = localStorage.getItem("todolist");
 
-    if (listLS) {
-      return (listLS = JSON.parse(localStorage.getItem("todolist")));
-    } else return [];
-  };
+export const HomePage = ({
+  list,
+  setList,
+  todo,
+  setTodo,
+  edit,
+  setEdit,
+  editID,
+  setEditID,
+  initState,
+}) => {
+  const navigate = useNavigate();
 
   //https://stackoverflow.com/questions/43572436/sort-an-array-of-objects-in-react-and-render-them
 
-  const initState = {
-    title: "",
-    description: "",
-    deadline_date: "",
-    deadline_time: "",
-    isComplete: false,
-  };
-  const [list, setList] = useState(getLS());
-  const [todo, setTodo] = useState(initState);
-  const [edit, setEdit] = useState(false);
-  const [editID, setEditID] = useState(null);
   const handleInputChange = (event) => {
     setTodo({ ...todo, [event.target.name]: event.target.value });
   };
@@ -69,8 +62,8 @@ export const HomePage = () => {
       !todo.deadline_date ||
       !todo.deadline_time
     ) {
-      //написать ошибку
-      TODO: console.log("пусто");
+      //      TODO:написать ошибку
+      console.log("пусто");
     } else if (todo && edit) {
       setList(
         list.map((item) => {
@@ -86,6 +79,28 @@ export const HomePage = () => {
       setEditID(null);
       setEdit(false);
     } else {
+      let now = new Date();
+      let dd = now.getDate();
+      let mm = now.getMonth();
+      const month = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      let yyyy = now.getFullYear();
+      let h = now.getHours();
+      let m = now.getMinutes();
+      let s = now.getSeconds();
+      let dataAdd =
+        dd + " " + month[mm] + " " + yyyy + " " + h + ":" + m + ":" + s;
       let newItem = {
         id: new Date().getTime().toString(),
         title: todo.title,
@@ -93,6 +108,7 @@ export const HomePage = () => {
         deadline_date: todo.deadline_date,
         deadline_time: todo.deadline_time,
         isComplete: todo.isComplete,
+        start: dataAdd,
       };
       let updList = [...list];
       updList.push(newItem);
@@ -132,6 +148,7 @@ export const HomePage = () => {
   return (
     <div className={style.container}>
       <h1>TodoList</h1>
+
       <form onSubmit={(e) => handleSubmit(e)} className={style.form}>
         <label className={style.form__label}>
           Name

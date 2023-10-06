@@ -1,6 +1,38 @@
+.button {
+  display: flex;
+  width: 135px;
+  height: 52px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-style: none;
+  color: white;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 32px;
+  opacity: 0.8;
+  background: #000;
+}
+
 .header {
-  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100vw - 30px);
+  min-width: 1405px;
   height: 80px;
   background-color: rgba(255, 255, 255, 0.5);
   margin-bottom: 50px;
+  padding: 0 15px;
+}
+
+.header__select {
+  display: flex;
+  gap: 15px;
+  height: 25px;
+  justify-content: center;
 }

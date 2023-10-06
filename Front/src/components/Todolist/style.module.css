@@ -33,7 +33,7 @@
   background: url(../../img/remove.svg);
 }
 
-.style.description {
+.description {
   color: rgba(51, 51, 51, 0.75);
   font-family: Poppins;
   font-size: 13px;
@@ -42,7 +42,7 @@
   line-height: normal;
 }
 
-.style.description_edit {
+.description_edit {
   color: #b86e1f;
   font-family: Poppins;
   font-size: 13px;

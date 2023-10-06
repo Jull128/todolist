@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./style.module.css";
-import { useEffect } from "react";
+
 export const Todolist = ({ list, editStatus, removeItem, editItem }) => {
   return list.map((item) => {
     const id = item.id;
@@ -28,13 +28,13 @@ export const Todolist = ({ list, editStatus, removeItem, editItem }) => {
             <div className={style.todo__title}>
               <p
                 name={`titleTodo${id}`}
-                className={isComplete ? style.edit : ""}
+                className={isComplete ? style.title_edit : style.title}
               >
                 {title}
               </p>
               <p
                 name={`titleTodo${id}`}
-                className={isComplete ? style.edit : ""}
+                className={isComplete ? style.title_edit : style.title}
               >
                 {date}
               </p>
@@ -52,6 +52,14 @@ export const Todolist = ({ list, editStatus, removeItem, editItem }) => {
               }
             >
               {description}
+            </p>
+            <p
+              name="start"
+              className={
+                isComplete ? style.description_edit : style.description
+              }
+            >
+              {item.start}
             </p>
           </div>
         </div>

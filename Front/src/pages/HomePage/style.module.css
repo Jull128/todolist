@@ -69,7 +69,7 @@
 }
 
 .form__input_date {
-  width: 101px;
+  width: 104px;
 }
 
 input:-webkit-autofill,
@@ -98,4 +98,7 @@ input:-webkit-autofill:active {
   display: flex;
   align-items: flex-start;
   gap: 24px;
+}
+.text {
+  color: black;
 }
