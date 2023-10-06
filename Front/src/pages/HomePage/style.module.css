@@ -32,6 +32,12 @@
   background: rgba(255, 255, 255, 0.9);
 }
 
+.line {
+  width: 478px;
+  height: 2px;
+  background-color: rgba(102, 102, 102, 0.25);
+}
+
 .form {
   display: flex;
   height: 87px;

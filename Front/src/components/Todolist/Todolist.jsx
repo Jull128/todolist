@@ -24,7 +24,7 @@ export const Todolist = ({ list, editStatus, removeItem, editItem }) => {
             />
             <label htmlFor={`check${id}`}></label>
           </div>
-          <div className={style.todo__description}>
+          <div className={style.todo__section}>
             <div className={style.todo__title}>
               <p
                 name={`titleTodo${id}`}
@@ -40,12 +40,19 @@ export const Todolist = ({ list, editStatus, removeItem, editItem }) => {
               </p>
               <p
                 name={`titleTodo${id}`}
-                className={isComplete ? style.edit : ""}
+                className={isComplete ? style.title_edit : style.title}
               >
                 {time}
               </p>
             </div>
-            <p name="descriptionTodo">{description}</p>
+            <p
+              name="descriptionTodo"
+              className={
+                isComplete ? style.description_edit : style.description
+              }
+            >
+              {description}
+            </p>
           </div>
         </div>
         <div className={style.button_box}>
