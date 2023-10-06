@@ -22,12 +22,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: calc(100vw - 30px);
-  min-width: 1405px;
-  height: 80px;
+
   background-color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 50px;
-  padding: 0 15px;
+  padding: 0 10%;
 }
 
 .header__select {
@@ -35,4 +32,14 @@
   gap: 15px;
   height: 25px;
   justify-content: center;
+}
+
+.header__select select {
+  width: 200px;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.header__select select option {
+  padding: 5px;
 }

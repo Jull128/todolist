@@ -47,6 +47,7 @@ function App() {
   return (
     <div className={style.container}>
       <Header
+        className={style.header_container}
         list={list}
         setList={setList}
         sortTodo={sortTodo}
