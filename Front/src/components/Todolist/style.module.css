@@ -33,22 +33,23 @@
   background: url(../../img/remove.svg);
 }
 
-.description {
+.description,
+.description_edit {
   color: rgba(51, 51, 51, 0.75);
   font-family: Poppins;
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  word-wrap: break-word;
+}
+
+.description {
+  color: rgba(51, 51, 51, 0.75);
 }
 
 .description_edit {
   color: #b86e1f;
-  font-family: Poppins;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
 }
 
 .item__checkbox {
@@ -113,7 +114,6 @@ p {
   position: relative;
   display: flex;
   width: 100%;
-  max-width: 992px;
   gap: 16px;
 }
 .todo__checkbox_container {
@@ -123,6 +123,7 @@ p {
 .todo__section {
   display: flex;
   flex-direction: column;
+  max-width: 992px;
 }
 
 .todo__title {

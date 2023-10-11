@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./style.module.css";
 
 export const Todolist = ({ list, editStatus, removeItem, editItem }) => {
-  return list.map((item) => {
+  return list?.map((item) => {
     const id = item.id;
     const title = item.title;
     const description = item.description;

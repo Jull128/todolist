@@ -1,9 +1,19 @@
+a {
+  margin-left: 10px;
+}
+
+.error {
+  margin: 0;
+  color: crimson;
+}
+
 .form {
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 32px;
+  margin-bottom: 10px;
 }
 
 .form__button {

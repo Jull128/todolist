@@ -16,12 +16,16 @@
   border-radius: 32px;
   opacity: 0.5;
   background: #000;
+  cursor: pointer;
 }
 
 .container {
   display: flex;
-  width: 1325px;
-  height: 645px;
+  min-width: 1084px;
+  width: 93%;
+  max-width: 1325px;
+  min-height: 500px;
+  height: 100%;
   padding: 40px;
   flex-direction: column;
   align-items: center;
@@ -30,12 +34,36 @@
   border-radius: 32px;
   border: 1px solid rgba(102, 102, 102, 0.35);
   background: rgba(255, 255, 255, 0.9);
+  margin-bottom: 6%;
 }
 
 .line {
-  width: 478px;
+  width: 200px;
   height: 2px;
   background-color: rgba(102, 102, 102, 0.25);
+}
+
+.sort_container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.sort__select {
+  display: flex;
+  gap: 15px;
+  height: 25px;
+  justify-content: center;
+}
+
+.sort__select select {
+  width: 200px;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.sort__select select option {
+  padding: 5px;
 }
 
 .form {
@@ -80,6 +108,7 @@ input:-webkit-autofill:active {
 }
 
 .form__label {
+  width: 100%;
   display: flex;
   min-width: 180px;
   flex-direction: column;
@@ -91,7 +120,10 @@ input:-webkit-autofill:active {
 }
 
 .form__label:nth-child(2) {
-  min-width: 472px;
+  min-width: 430px;
+}
+.form__label:nth-child(3) {
+  max-width: 270px;
 }
 
 .form__label_deadline {
@@ -101,4 +133,9 @@ input:-webkit-autofill:active {
 }
 .text {
   color: black;
+}
+
+.wrapper {
+  width: calc(100% - 20%);
+  padding: 0 10%;
 }

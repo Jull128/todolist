@@ -37,6 +37,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  gap: 40px;
   background: url(/src/img/background.png) repeat-y center / cover;
 }
 

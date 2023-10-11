@@ -1,37 +1,62 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Todolist } from "../../components/Todolist/Todolist";
 import style from "./style.module.css";
 
-export const HomePage = ({
-  list,
-  setList,
-  todo,
-  setTodo,
-  edit,
-  setEdit,
-  editID,
-  setEditID,
-  initState,
-}) => {
+export const HomePage = () => {
+  const getLS = () => {
+    let listLS = localStorage.getItem("todolist");
+
+    if (listLS) {
+      return (listLS = JSON.parse(localStorage.getItem("todolist")));
+    } else return [];
+  };
+  const [list, setList] = useState(getLS());
+  const [edit, setEdit] = useState(false);
+  const [editID, setEditID] = useState(null);
+  const [sortTodo, setSortTodo] = useState("");
+  const sortOptions = ["title", "deadline_date", "start"];
+
+  const handleSort = (e) => {
+    let list = getLS();
+    let value = e.target.value;
+    setSortTodo(value);
+    let sort = list.sort((a, b) => (a.value > b.value ? 1 : -1));
+    setList(sort);
+  };
+
+  useEffect(() => {
+    console.log("wow");
+    localStorage.setItem("todolist", JSON.stringify(list));
+  }, [list]);
+
+  const initState = {
+    title: "",
+    description: "",
+    deadline_date: "",
+    deadline_time: "",
+    isComplete: false,
+  };
+  const [todo, setTodo] = useState(initState);
+
   const navigate = useNavigate();
-
-  //https://stackoverflow.com/questions/43572436/sort-an-array-of-objects-in-react-and-render-them
-
   const handleInputChange = (event) => {
     setTodo({ ...todo, [event.target.name]: event.target.value });
   };
 
   const isChecked = () => {
-    let listLS = JSON.parse(localStorage.getItem("todolist"));
+    let listLS = localStorage.getItem("todolist");
     let checkboxes = document.getElementsByName("complete");
-    for (var i = 0, n = checkboxes.length; i < n; i++) {
-      let selected = checkboxes[i].id.replace("check", "");
-      let search = listLS.find((x) => x.id === selected);
-      if (search.isComplete) {
-        checkboxes[i].checked = true;
-      } else {
-        checkboxes[i].checked = false;
+    if (listLS) {
+      listLS = JSON.parse(localStorage.getItem("todolist"));
+      for (var i = 0, n = checkboxes.length; i < n; i++) {
+        let selected = checkboxes[i].id.replace("check", "");
+        let search = listLS.find((x) => x.id === selected);
+        if (search.isComplete) {
+          checkboxes[i].checked = true;
+        } else {
+          checkboxes[i].checked = false;
+        }
       }
     }
   };
@@ -41,14 +66,9 @@ export const HomePage = ({
   }, 10);
 
   useEffect(() => {
-    localStorage.setItem("todolist", JSON.stringify(list));
-  }, [list]);
-
-  useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-    const refreshToken = localStorage.getItem("refreshToken");
 
-    if (!accessToken || !refreshToken) {
+    if (!accessToken) {
       // Если токены отсутствуют, перенаправить на страницу входа
       navigate("/signin");
     }
@@ -110,6 +130,7 @@ export const HomePage = ({
         isComplete: todo.isComplete,
         start: dataAdd,
       };
+      console.log(new Date(todo.deadline_date + " " + todo.deadline_time));
       let updList = [...list];
       updList.push(newItem);
       setList(updList);
@@ -145,67 +166,121 @@ export const HomePage = ({
     );
   };
 
-  return (
-    <div className={style.container}>
-      <h1>TodoList</h1>
+  useEffect(() => {
+    if (!("Notification" in window)) {
+      console.log("Уведомления не поддерживаются в этом браузере");
+    }
 
-      <form onSubmit={(e) => handleSubmit(e)} className={style.form}>
-        <label className={style.form__label}>
-          Name
-          <input
-            type="text"
-            name="title"
-            placeholder="Title"
-            value={todo.title}
-            onChange={(e) => handleInputChange(e)}
-            className={style.form__input}
-          />
-        </label>
-        <label className={style.form__label}>
-          Description
-          <input
-            type="text"
-            placeholder="Description"
-            name="description"
-            value={todo.description}
-            onChange={(e) => handleInputChange(e)}
-            className={style.form__input}
-          />
-        </label>
-        <label className={style.form__label}>
-          Deadline
-          <div className={style.form__label_deadline}>
+    list.forEach((todo) => {
+      const timeDiff = getTimeDiffInDays(
+        todo.deadline_date + "T" + todo.deadline_time
+      );
+      if (timeDiff <= 3) {
+        showNotification(todo.title, timeDiff);
+      }
+    });
+  }, []);
+
+  const getTimeDiffInDays = (deadline) => {
+    const today = new Date();
+    const deadlineDate = new Date(deadline);
+    const timeDiff = deadlineDate.getTime() - today.getTime();
+    return Math.ceil(timeDiff / (1000 * 3600 * 24));
+  };
+
+  const showNotification = (title, timeDiff) => {
+    console.log(title, timeDiff);
+
+    // Проверяем разрешение на отправку уведомлений
+    if (Notification.permission === "granted") {
+      new Notification(`Задача: ${title}\nДней до срока: ${timeDiff}`);
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          new Notification(`Задача: ${title}\nДней до срока: ${timeDiff}`);
+        }
+      });
+    }
+  };
+
+  return (
+    <div className={style.wrapper}>
+      <div className={style.container}>
+        <form onSubmit={(e) => handleSubmit(e)} className={style.form}>
+          <label className={style.form__label}>
+            Name
             <input
               type="text"
-              name="deadline_date"
-              placeholder="dd.mm.yyyy"
-              onFocus={(e) => (e.target.type = "date")}
-              value={todo.deadline_date}
-              onChange={(e) => handleInputChange(e)}
-              className={style.form__input_date}
-            />
-            <input
-              type="time"
-              name="deadline_time"
-              value={todo.deadline_time}
+              name="title"
+              placeholder="Title"
+              value={todo.title}
               onChange={(e) => handleInputChange(e)}
               className={style.form__input}
             />
+          </label>
+          <label className={style.form__label}>
+            Description
+            <input
+              type="text"
+              placeholder="Description"
+              name="description"
+              value={todo.description}
+              onChange={(e) => handleInputChange(e)}
+              className={style.form__input}
+            />
+          </label>
+          <label className={style.form__label}>
+            Deadline
+            <div className={style.form__label_deadline}>
+              <input
+                type="text"
+                name="deadline_date"
+                placeholder="dd.mm.yyyy"
+                onFocus={(e) => (e.target.type = "date")}
+                value={todo.deadline_date}
+                onChange={(e) => handleInputChange(e)}
+                className={style.form__input_date}
+              />
+              <input
+                type="time"
+                name="deadline_time"
+                value={todo.deadline_time}
+                onChange={(e) => handleInputChange(e)}
+                className={style.form__input}
+              />
+            </div>
+          </label>
+          <button type="submit" className={style.button}>
+            {edit ? "Edit" : "Submit"}
+          </button>
+        </form>
+        <div className={style.sort_container}>
+          <div className={style.line}></div>
+          <div className={style.sort__select}>
+            <h5>Sort By:</h5>
+            <select onChange={(e) => handleSort(e)} value={sortTodo}>
+              <option>Please select value</option>
+              {sortOptions.map((item, index) => {
+                return (
+                  <option className={style.text} value={item} key={index}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
           </div>
-        </label>
-        <button type="submit" className={style.button}>
-          {edit ? "Edit" : "Submit"}
-        </button>
-      </form>
-      <div className={style.line}></div>
-      <Todolist
-        list={list}
-        todo={todo}
-        setTodo={setTodo}
-        editStatus={editStatus}
-        removeItem={removeItem}
-        editItem={editItem}
-      />
+          <div className={style.line}></div>
+        </div>
+        <Todolist
+          list={list}
+          todo={todo}
+          setTodo={setTodo}
+          editStatus={editStatus}
+          removeItem={removeItem}
+          editItem={editItem}
+        />
+        {/* <Notification list={list} /> */}
+      </div>
     </div>
   );
 };

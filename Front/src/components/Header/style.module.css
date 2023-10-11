@@ -16,30 +16,16 @@
   border-radius: 32px;
   opacity: 0.8;
   background: #000;
+  cursor: pointer;
 }
 
 .header {
+  position: relative;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  background-color: rgba(255, 255, 255, 0.5);
+  width: calc(100% - 20%);
+  background-color: rgba(255, 255, 255, 0.6);
   padding: 0 10%;
-}
-
-.header__select {
-  display: flex;
-  gap: 15px;
-  height: 25px;
-  justify-content: center;
-}
-
-.header__select select {
-  width: 200px;
-  padding: 5px;
-  border-radius: 4px;
-}
-
-.header__select select option {
-  padding: 5px;
 }

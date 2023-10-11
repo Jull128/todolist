@@ -5,7 +5,7 @@ import { api } from "../../utils";
 export const SignIn = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
-
+  const [error, setError] = useState({ statusEr: false, message: "" });
   // // Функция для симуляции запроса к серверу
   const makeAuthRequest = async (e) => {
     e.preventDefault();
@@ -20,14 +20,16 @@ export const SignIn = () => {
 
       const data = await response.json();
 
-      // Сохраняем полученные токены в localStorage
-      localStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("refreshToken", data.refreshToken);
-
       // Перейти на домашнюю страницу
-      navigate("/home");
+      if (response.ok) {
+        // Сохраняем полученные токены в localStorage
+        localStorage.setItem("accessToken", data.accessToken);
+        navigate("/home");
+      } else {
+        setError({ message: data, statusEr: true });
+      }
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
@@ -61,6 +63,12 @@ export const SignIn = () => {
             className={style.form__input}
           />
         </label>
+        {error.statusEr === true ? (
+          <p className={style.error}>{error.message}</p>
+        ) : (
+          ""
+        )}
+
         <button
           onClick={(e) => makeAuthRequest(e)}
           className={style.form__button}

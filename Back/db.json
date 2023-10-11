@@ -1,11 +1,5 @@
 {
-  "users": [
-    {
-      "email": "test@test.ru",
-      "password": "$2a$10$msNMEE0OfWE4FOOfGRMgzOeatOA6vbrMt4KptqDn/yUwTMEeyqtEq",
-      "id": 1
-    }
-  ],
+  "users": [],
   "messages": [
     {
       "title": "asdasd"
